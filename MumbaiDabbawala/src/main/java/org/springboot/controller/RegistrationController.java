@@ -10,6 +10,7 @@ import org.springboot.repository.RegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin( origins = "http://localhost:3000/")
 @RestController // It is used to build rest API
 @RequestMapping("/api") // It is used to map web request
 public class RegistrationController {
@@ -57,7 +59,6 @@ public class RegistrationController {
 	//	registration.setUserId(registrationDetails.getUserId());
 		registration.setFirstname(registrationDetails.getFirstname());
 		registration.setLastname(registrationDetails.getLastname());
-		registration.setGender(registrationDetails.getGender());
 		registration.setEmail(registrationDetails.getEmail());
 		registration.setContactno(registrationDetails.getContactno());
 		registration.setPassword(registrationDetails.getPassword());
@@ -67,13 +68,13 @@ public class RegistrationController {
 
 	//delete the information
 	@DeleteMapping("/registrationform/{id}")
-	public Map<String, Boolean> deleteRegistration(@PathVariable(value="id")Long userId)throws ResourceNotFoundException{
+	public ResponseEntity<Map<String, Boolean>> deleteRegistration(@PathVariable(value="id")Long userId)throws ResourceNotFoundException{
 		RegistrationForm registration = registrationRepository.findById(userId).orElseThrow(() ->
 		new ResourceNotFoundException("Registration is not found by that id :: " + userId));
 
 		this.registrationRepository.delete(registration);
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("deleted",Boolean.TRUE);
-		return response;   // To delete the particular data 
+		return ResponseEntity.ok(response);   // To delete the particular data 
 	}
 }

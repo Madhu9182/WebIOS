@@ -21,8 +21,6 @@ public class RegistrationForm {
 	private String firstname;
 	@Column(name="Last_Name")
 	private String lastname;
-	@Column(name="Gender")
-	private String gender;
 	@Column(name="Email")
 	private String email;
 	@Column(name="Contact_No")
@@ -31,13 +29,12 @@ public class RegistrationForm {
 	private String password;
 
 	//Parameterized constructors to store the data
-	public RegistrationForm(long userId, String firstname, String lastname, String gender, String email,
+	public RegistrationForm(long userId, String firstname, String lastname, String email,
 			String contactno, String password) {
 		super();
 		this.userId = userId;
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.gender = gender;
 		this.email = email;
 		this.contactno = contactno;
 		this.password = password;
@@ -66,12 +63,6 @@ public class RegistrationForm {
 	}
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
-	}
-	public String getGender() {
-		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
 	}
 	public String getEmail() {
 		return email;
